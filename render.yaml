@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: metachasm-web
+    env: static
+    buildCommand: ""
+    staticPublishPath: ./
+    branch: main
