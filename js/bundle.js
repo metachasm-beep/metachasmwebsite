@@ -384,55 +384,57 @@ class Parallax {
 
   init() {
     // Sidewave Immersive Parallax Effect
-    if (this.foldsContainer && this.folds.length > 0) {
-      const updateFolds = () => {
-        const scrollTop = this.foldsContainer.scrollTop;
-        const containerHeight = this.foldsContainer.clientHeight;
-
-        this.folds.forEach((fold, index) => {
-          const foldTop = index * containerHeight;
-          const distance = scrollTop - foldTop;
-          const progress = distance / containerHeight;
-
-          fold.style.transformOrigin = 'center center';
-
-          if (progress > 0 && progress <= 1) {
-            // We are scrolling PAST this fold (camera moves forward, fold comes closer)
-            const scale = 1 + (2.5 * progress); // Grows massive
-            const opacity = 1 - Math.pow(progress, 1.5); // Fades out smoothly
-            const translateY = progress * containerHeight; // Pinned
-
-            fold.style.transform = `translateY(${translateY}px) scale(${scale})`;
-            fold.style.opacity = opacity;
-            fold.style.zIndex = 2;
-          } else if (progress < 0 && progress >= -1) {
-            // This fold is coming INTO view (starts far away and grows)
-            const scale = 1 - Math.abs(progress * 0.4); // Starts at 0.6, grows to 1
-            const opacity = 1 - Math.abs(progress); // Starts at 0, fades to 1
-            const translateY = progress * containerHeight; // Pinned
-
-            fold.style.transform = `translateY(${translateY}px) scale(${scale})`;
-            fold.style.opacity = opacity;
-            fold.style.zIndex = 1;
-          } else if (progress > 1 || progress < -1) {
-            fold.style.transform = `translateY(${containerHeight}px) scale(0)`;
-            fold.style.opacity = 0;
-            fold.style.zIndex = 0;
-          } else {
-            // Exactly in view (progress = 0)
-            fold.style.transform = `translateY(0) scale(1)`;
-            fold.style.opacity = 1;
-            fold.style.zIndex = 2;
-          }
-        });
-      };
-
-      this.foldsContainer.addEventListener('scroll', () => {
-        requestAnimationFrame(updateFolds);
-      });
+    if (this.foldsContainer && this.folds.length > 0 && typeof window.gsap !== 'undefined') {
+      window.gsap.registerPlugin(window.ScrollTrigger);
       
-      // Initial trigger
-      updateFolds();
+      this.folds.forEach((fold, index) => {
+        // Pin each fold so it stays in place while we scroll through it
+        window.ScrollTrigger.create({
+          trigger: fold,
+          scroller: '.folds-container',
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          pinSpacing: false
+        });
+
+        // Add a scrub animation for the contents to fade/move in
+        const content = fold.querySelector('.section-container, .hero-brutalist-grid');
+        if (content) {
+          window.gsap.fromTo(content, 
+            { opacity: 0, scale: 0.9, y: 50 },
+            { 
+              opacity: 1, 
+              scale: 1, 
+              y: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: fold,
+                scroller: '.folds-container',
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 1
+              }
+            }
+          );
+          
+          // Fade out when leaving
+          if (index < this.folds.length - 1) {
+             window.gsap.to(content, {
+               opacity: 0,
+               y: -50,
+               ease: 'none',
+               scrollTrigger: {
+                 trigger: fold,
+                 scroller: '.folds-container',
+                 start: 'top top',
+                 end: 'bottom top',
+                 scrub: 1
+               }
+             });
+          }
+        }
+      });
     }
 
     if (typeof window.Lenis !== 'undefined') {
@@ -506,4 +508,18 @@ document.addEventListener('DOMContentLoaded', () => {
   orchestrator.initLogoAnimation('.logo');
   orchestrator.applyTilt('.service-card, .portfolio-item, .test-card, .dashboard-mockup');
   orchestrator.revealElements('.fold');
+
+  // Form handling
+  const contactForm = document.getElementById('contact-form');
+  const contactSuccess = document.getElementById('contact-success');
+  if (contactForm && contactSuccess) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      contactForm.reset();
+      contactSuccess.style.display = 'block';
+      setTimeout(() => {
+        contactSuccess.style.display = 'none';
+      }, 5000);
+    });
+  }
 });
