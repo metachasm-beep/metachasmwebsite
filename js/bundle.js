@@ -398,16 +398,16 @@ class Parallax {
           pinSpacing: false
         });
 
-        // Add a scrub animation for the contents to fade/move in
+        // Add a scrub animation for the main content container
         const content = fold.querySelector('.section-container, .hero-brutalist-grid');
         if (content) {
           window.gsap.fromTo(content, 
-            { opacity: 0, scale: 0.9, y: 50 },
+            { opacity: 0, scale: 0.95, y: 50 },
             { 
               opacity: 1, 
               scale: 1, 
               y: 0,
-              ease: 'none',
+              ease: 'power2.out',
               scrollTrigger: {
                 trigger: fold,
                 scroller: '.folds-container',
@@ -418,12 +418,35 @@ class Parallax {
             }
           );
           
-          // Fade out when leaving
+          // Staggered reveals for internal elements (Motion-Driven pattern)
+          const innerElements = content.querySelectorAll('h1, h2, h3, p, .btn-primary, .service-card, .portfolio-item');
+          if (innerElements.length > 0) {
+             window.gsap.fromTo(innerElements,
+               { opacity: 0, y: 30, rotationX: -10 },
+               {
+                 opacity: 1,
+                 y: 0,
+                 rotationX: 0,
+                 stagger: 0.1,
+                 ease: 'power3.out',
+                 scrollTrigger: {
+                   trigger: fold,
+                   scroller: '.folds-container',
+                   start: 'top 75%',
+                   end: 'center center',
+                   scrub: 1
+                 }
+               }
+             );
+          }
+          
+          // Fade out when leaving with depth effect
           if (index < this.folds.length - 1) {
              window.gsap.to(content, {
                opacity: 0,
-               y: -50,
-               ease: 'none',
+               y: -80,
+               scale: 0.95,
+               ease: 'power2.in',
                scrollTrigger: {
                  trigger: fold,
                  scroller: '.folds-container',
