@@ -50,6 +50,7 @@ export default function Tech() {
   const isInView = useInView(containerRef, { once: true, amount: 0.3 });
 
   const [isMobile, setIsMobile] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState(0);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -115,12 +116,30 @@ export default function Tech() {
           </div>
         </div>
 
+        {/* ── MOBILE TAB SYSTEM ── */}
+        <div className="md:hidden flex items-center justify-center gap-2 mb-8 w-full max-w-[90vw] mx-auto p-1.5 bg-[#111111]/5 rounded-xl backdrop-blur-sm">
+          {TECH_CATEGORIES.map((cat, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveTab(idx)}
+              className={`flex-1 py-3 px-2 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${
+                activeTab === idx
+                  ? 'bg-[#111111] text-[#F9F9F6] shadow-md shadow-[#111111]/20'
+                  : 'text-[#111111]/50 hover:text-[#111111] hover:bg-[#111111]/10'
+              }`}
+              style={{ fontFamily: 'var(--font-mono)' }}
+            >
+              {cat.id} // {cat.title.split(' ')[0]}
+            </button>
+          ))}
+        </div>
+
         {/* ── ARCHITECTURE PILLARS (GLOW BORDER CARDS) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-start relative">
           {TECH_CATEGORIES.map((cat, idx) => (
             <motion.div 
               key={idx} 
-              className={`group relative w-full h-auto ${!isMobile ? 'cursor-grab active:cursor-grabbing' : ''}`}
+              className={`group relative w-full h-auto ${!isMobile ? 'cursor-grab active:cursor-grabbing' : ''} ${isMobile && activeTab !== idx ? 'hidden' : 'block'}`}
               drag={!isMobile}
               dragConstraints={{ left: -30, right: 30, top: -30, bottom: 30 }}
               dragElastic={0.4}

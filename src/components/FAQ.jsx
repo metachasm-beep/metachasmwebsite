@@ -69,9 +69,9 @@ export default function FAQ() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full">
+        <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full pb-8 md:pb-0 pt-2 px-4 md:px-0 -mx-4 md:mx-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" style={{ WebkitOverflowScrolling: 'touch' }}>
           {FAQ_ITEMS.map((item) => (
-            <div key={item.id} className="group relative w-full h-full">
+            <div key={item.id} className="group relative w-[85vw] sm:w-[60vw] md:w-full h-full shrink-0 snap-center md:snap-align-none">
               <GlowBorderCard
                 color="rgba(0,85,255,0.15)" 
                 borderWidth={1}
