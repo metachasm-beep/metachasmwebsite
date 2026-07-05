@@ -69,7 +69,7 @@ export default function Services() {
       </svg>
       
       {/* Main Centered Container */}
-      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-6 py-12 md:py-24">
+      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-24">
         
         {/* Header section perfectly centered */}
         <div className="w-full flex flex-col items-center text-center mb-16 md:mb-24">
@@ -111,9 +111,9 @@ export default function Services() {
                   </div>
                   
                   {/* Center: Title */}
-                  <div className="flex-1 flex justify-start md:justify-center">
+                  <div className="flex-1 flex justify-start md:justify-center overflow-hidden">
                     <h3 
-                      className={`text-3xl md:text-5xl font-black uppercase tracking-tighter transition-all duration-500 ${isActive ? 'text-[#111111] scale-[1.02] md:scale-105' : 'text-[#111111]/70 group-hover:text-[#111111]'}`}
+                      className={`text-xl md:text-5xl font-black uppercase tracking-tighter transition-all duration-500 break-words ${isActive ? 'text-[#111111] scale-[1.02] md:scale-105' : 'text-[#111111]/70 group-hover:text-[#111111]'}`}
                       style={{ fontFamily: 'var(--font-heading)' }}
                     >
                       <DecryptedText

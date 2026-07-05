@@ -46,7 +46,7 @@ export default function Testimonials() {
             [03] — Proof of Concept
           </p>
           <h2
-            className="text-[clamp(2.5rem,6vw,7rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
+            className="text-[clamp(1.8rem,6vw,7rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Verified. <span className="text-[#0055FF]">Impact.</span>
