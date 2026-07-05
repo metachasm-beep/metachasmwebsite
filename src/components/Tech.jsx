@@ -165,7 +165,7 @@ export default function Tech() {
                 width="100%"
                 height="auto"
               >
-                <div className="w-full h-auto flex flex-col items-start p-6 md:p-8 bg-[#F9F9F6]/50 backdrop-blur-sm relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/80 pointer-events-auto">
+                <div className="w-full h-auto max-h-[55vh] md:max-h-none flex flex-col items-start p-6 md:p-8 bg-[#F9F9F6]/50 backdrop-blur-sm relative overflow-y-auto md:overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/80 pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   
                   {/* Category Header */}
                   <div className="w-full flex justify-between items-start mb-10 border-b border-[#111111]/10 pb-6">
@@ -201,7 +201,7 @@ export default function Tech() {
                   {/* Tech items Grid */}
                   <div className="flex flex-wrap gap-3 w-full">
                     {cat.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="tech-item-reveal opacity-0 w-full sm:w-auto">
+                      <div key={itemIdx} className="tech-item-reveal opacity-0 w-auto">
                         <Magnet padding={15} magnetStrength={2}>
                           <div className="px-4 py-2 border border-[#111111]/15 rounded bg-transparent group/item transition-colors duration-300 hover:border-[#0055FF] hover:bg-[#0055FF]/5">
                             <span

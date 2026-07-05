@@ -56,7 +56,7 @@ export default function Testimonials() {
         {/* Minimalist Data Log / Testimonial Viewer */}
         <div className="w-full max-w-4xl flex flex-col items-center justify-center relative min-h-[300px]">
           
-          <div className="w-full border-t border-b border-[#111111]/15 py-12 md:py-16 px-4 md:px-12 flex flex-col items-center text-center relative overflow-hidden bg-[#F9F9F6]/20">
+          <div className="w-full border-t border-b border-[#111111]/15 py-8 md:py-16 px-4 md:px-12 flex flex-col items-center text-center relative overflow-visible bg-[#F9F9F6]/20">
             {/* Scanline Background */}
             <div
               className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -77,8 +77,8 @@ export default function Testimonials() {
               >
                 {/* Quote Text */}
                 <p 
-                  className="text-xl md:text-3xl leading-relaxed md:leading-snug mb-8 max-w-3xl text-[#111111]/80"
-                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontStyle: 'italic' }}
+                  className="leading-relaxed md:leading-snug mb-6 md:mb-8 max-w-3xl text-[#111111]/80"
+                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(1.1rem, 4vw, 1.875rem)' }}
                 >
                   "{TESTIMONIALS[activeIndex].description}"
                 </p>
