@@ -92,6 +92,26 @@ export default function Contact() {
         </div>
         
       </div>
+
+      {/* Footer moved from App.jsx */}
+      <footer className="absolute bottom-0 left-0 w-full py-8 text-center text-[#111111]/60 border-t border-[#111111]/10 flex flex-col md:flex-row items-center justify-center gap-4 z-50 bg-[#FAFAFA]">
+        <p>&copy; {new Date().getFullYear()} Metachasm. Engineered for the future.</p>
+        <div className="flex items-center gap-4 text-xs">
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent('openLegalModal', { detail: 'privacy' }))}
+            className="hover:text-[#0055FF] transition-colors"
+          >
+            Privacy Policy
+          </button>
+          <span>|</span>
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent('openLegalModal', { detail: 'terms' }))}
+            className="hover:text-[#0055FF] transition-colors"
+          >
+            Terms & Conditions
+          </button>
+        </div>
+      </footer>
     </section>
   );
 }

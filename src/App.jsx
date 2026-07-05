@@ -51,8 +51,14 @@ export default function App() {
       syncInterval: 100
     });
     
+    const handleLegalModal = (e) => {
+      setLegalModal({ isOpen: true, type: e.detail });
+    };
+    window.addEventListener('openLegalModal', handleLegalModal);
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
+      window.removeEventListener('openLegalModal', handleLegalModal);
     };
   }, []);
 
@@ -77,25 +83,6 @@ export default function App() {
             </ErrorBoundary>
           </main>
           
-          {/* Footer */}
-          <footer className="py-8 text-center text-muted-foreground bg-background border-t border-border flex flex-col md:flex-row items-center justify-center gap-4 relative z-50">
-            <p>&copy; {new Date().getFullYear()} Metachasm. Engineered for the future.</p>
-            <div className="flex items-center gap-4 text-xs">
-              <button 
-                onClick={() => setLegalModal({ isOpen: true, type: 'privacy' })}
-                className="hover:text-[#0055FF] transition-colors"
-              >
-                Privacy Policy
-              </button>
-              <span>|</span>
-              <button 
-                onClick={() => setLegalModal({ isOpen: true, type: 'terms' })}
-                className="hover:text-[#0055FF] transition-colors"
-              >
-                Terms & Conditions
-              </button>
-            </div>
-          </footer>
           <Toaster />
           <CookieBanner onReadPolicy={() => setLegalModal({ isOpen: true, type: 'privacy' })} />
           <LegalModal 

@@ -69,19 +69,17 @@ export default function FAQ() {
           </h2>
         </div>
 
-        {/* Responsive Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full">
           {FAQ_ITEMS.map((item) => (
-            <div key={item.id} className="group relative w-full h-full min-h-[220px]">
+            <div key={item.id} className="group relative w-full h-full">
               <GlowBorderCard
-                color="rgba(0,85,255,0.15)" // Using Electric Blue for the border glow!
+                color="rgba(0,85,255,0.15)" 
                 borderWidth={1}
                 borderRadius="16px"
                 className="w-full h-full"
                 width="100%"
-                height="100%"
               >
-                <div className="w-full h-full flex flex-col items-start justify-start text-left p-6 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
+                <div className="w-full h-full min-h-[220px] flex flex-col items-start justify-start text-left p-6 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
                   
                   {/* Subtle index */}
                   <span
@@ -93,7 +91,7 @@ export default function FAQ() {
 
                   {/* Question */}
                   <h3 
-                    className="text-base lg:text-lg font-bold uppercase tracking-tight text-[#111111] mb-3 leading-snug"
+                    className="text-base lg:text-lg font-bold uppercase tracking-tight text-[#111111] mb-3 leading-snug break-words w-full"
                     style={{ fontFamily: 'var(--font-heading)' }}
                   >
                     <DecryptedText
@@ -102,14 +100,14 @@ export default function FAQ() {
                       speed={40}
                       maxIterations={5}
                       characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ01!#$"
-                      className="text-current group-hover:text-[#0055FF] transition-colors duration-300"
+                      className="text-current group-hover:text-[#0055FF] transition-colors duration-300 whitespace-normal"
                       encryptedClassName="text-[#0055FF]/40"
                     />
                   </h3>
 
                   {/* Answer */}
                   <p 
-                    className="text-xs lg:text-sm leading-relaxed text-[#111111]/60 group-hover:text-[#111111]/80 transition-colors duration-300 mt-auto"
+                    className="text-xs lg:text-sm leading-relaxed text-[#111111]/60 group-hover:text-[#111111]/80 transition-colors duration-300 mt-auto break-words"
                     style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
                   >
                     {item.answer}
