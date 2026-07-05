@@ -8,10 +8,11 @@ const SkillDetail = lazy(() => import('./pages/SkillDetail'));
 function App(): React.ReactElement {
   return (
     <Router basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50">
-        <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="h-screen w-screen overflow-hidden text-slate-50 relative">
+        <div className="mesh-bg" />
+        <header className="absolute top-0 z-50 w-full border-b border-slate-800/50 bg-slate-950/40 backdrop-blur-xl supports-[backdrop-filter]:bg-slate-950/20">
           <div className="container flex h-14 max-w-screen-2xl items-center mx-auto px-4">
-            <Link to="/" className="mr-8 flex items-center space-x-2">
+            <Link to="/" className="mr-8 flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <BookOpen className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
               <span className="hidden font-bold sm:inline-block">Antigravity Skills</span>
             </Link>
@@ -22,7 +23,7 @@ function App(): React.ReactElement {
                   href="https://github.com/sickn33/antigravity-awesome-skills"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+                  className="flex items-center text-slate-300 transition-colors hover:text-indigo-400"
                 >
                   <Github className="h-5 w-5 mr-2" />
                   GitHub Repository
@@ -31,7 +32,7 @@ function App(): React.ReactElement {
             </div>
           </div>
         </header>
-        <main className="container max-w-screen-2xl mx-auto px-4 py-6">
+        <main className="pt-[4rem] h-full flex flex-col container max-w-screen-2xl mx-auto px-4 pb-4">
           <Suspense
             fallback={
               <div

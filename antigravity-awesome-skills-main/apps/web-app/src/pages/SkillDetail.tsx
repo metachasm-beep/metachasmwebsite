@@ -325,41 +325,49 @@ export function SkillDetail(): React.ReactElement {
           </div>
         </div>
 
-        <div className="mt-6 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="rounded-lg border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900 p-4 mb-4">
-            <p className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 font-semibold">
-              Use it now
-            </p>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              Start quickly: install the package, open your workspace, and run this skill prompt directly.
-            </p>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <code className="inline-block rounded-md bg-slate-900 text-slate-50 px-3 py-2 text-sm font-mono border border-slate-800">
-                {installCommand}
-              </code>
-              <button
-                onClick={copyInstallCommand}
-                className="inline-flex items-center text-sm font-medium text-indigo-700 hover:text-indigo-600 dark:text-indigo-300 dark:hover:text-indigo-200"
-              >
-                {commandCopied ? 'Copied' : 'Copy command'}
-              </button>
+        {/* Terminal Preview Section */}
+        <div className="mt-8 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl overflow-hidden font-mono text-sm">
+          {/* Terminal Header */}
+          <div className="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
+            <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
+            <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+            <div className="ml-4 text-slate-500 text-xs tracking-wider flex-1 text-center pr-12">
+              bash - @{skill.name}
             </div>
           </div>
-
-          <label htmlFor="context" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-            Interactive Prompt Builder (Optional)
-          </label>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
-            Add specific details below (e.g. &quot;Use React 19 and Tailwind&quot;). The &quot;Copy Prompt&quot; button will automatically attach your context.
-          </p>
-          <textarea
-            id="context"
-            rows={3}
-            className="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all resize-y"
-            placeholder="Type your specific task requirements here..."
-            value={customContext}
-            onChange={(e) => setCustomContext(e.target.value)}
-          />
+          
+          {/* Terminal Body */}
+          <div className="p-6 text-slate-300">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-emerald-400">➜</span>
+              <span className="text-indigo-400">~</span>
+              <span className="text-slate-100">{installCommand}</span>
+            </div>
+            <div className="text-slate-500 mb-4">
+              Installing packages...<br/>
+              added 21 packages in 2s
+            </div>
+            <div className="flex items-start gap-2 mb-2">
+              <span className="text-emerald-400 mt-0.5">➜</span>
+              <span className="text-indigo-400 mt-0.5">~</span>
+              <div className="flex-1">
+                <span className="text-amber-300">use</span> <span className="text-slate-100">@{skill.name}</span>
+                <div className="w-2 h-4 bg-slate-300 inline-block ml-1 animate-pulse align-middle"></div>
+              </div>
+            </div>
+            <p className="text-slate-500 text-xs mt-6 mb-2 border-t border-slate-800/50 pt-4">
+              Optional Context: Add specific details below. The "Copy Prompt" button will automatically attach your context.
+            </p>
+            <textarea
+              id="context"
+              rows={2}
+              className="w-full rounded-md border border-slate-800 bg-slate-900/50 px-3 py-2 text-sm text-slate-300 placeholder-slate-600 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 outline-none transition-all resize-y"
+              placeholder="e.g. Use React 19 and Tailwind"
+              value={customContext}
+              onChange={(e) => setCustomContext(e.target.value)}
+            />
+          </div>
         </div>
       </div>
 

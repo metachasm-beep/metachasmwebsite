@@ -1,23 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+}
+
+:root {
+  /* Light theme with vibrant blue and orange accents */
+  --background: oklch(0.98 0.005 240);
+  /* Slate-900 equivalent for high contrast readability */
+  --foreground: #1E293B;
+  --card: oklch(1 0 0);
+  --card-foreground: #1E293B;
+  --popover: oklch(1 0 0);
+  --popover-foreground: #1E293B;
+  /* Primary: Vibrant Blue-500 */
+  --primary: oklch(0.6 0.16 260);
+  --primary-foreground: oklch(0.98 0 0);
+  /* Secondary: Light Blue */
+  --secondary: oklch(0.95 0.02 260);
+  --secondary-foreground: oklch(0.3 0.1 260);
+  /* Muted */
+  --muted: oklch(0.95 0.02 240);
+  /* Slate-600 equivalent for accessible muted text */
+  --muted-foreground: #475569;
+  /* Accent: Vibrant Orange-500 */
+  --accent: oklch(0.65 0.2 40);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: rgba(148, 163, 184, 0.2); /* Slate-400/20 */
+  --input: rgba(148, 163, 184, 0.2);
+  --ring: oklch(0.6 0.16 260);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.141 0.005 285.823);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.141 0.005 285.823);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.274 0.006 286.033);
+  --input: oklch(0.274 0.006 286.033);
+  --ring: oklch(0.446 0.043 257.281);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+}
+
 /* ========================================
    METACHASM — style.css
    Apple Glassmorphism Design System
    ======================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* UI-UX Pro Max Zinc & Blue Palette */
-  --bg-color: #FAFAFA;
-  --text-primary: #09090B;
-  --text-secondary: #3F3F46;
-  --text-muted: #71717A;
-  --accent-primary: #2563EB; /* Cobalt Blue */
+  /* UI-UX Skeuomorphic Palette */
+  --bg-color: #E0E5EC;
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-muted: #B2BEC3;
+  --accent-primary: #0984E3; 
+  --accent-secondary: #6C5CE7; 
   
-  /* Glass Variables */
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-blur: blur(32px);
-  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  /* Skeuomorphic/Neomorphic Variables */
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: blur(24px);
+  --glass-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.04);
   --glass-radius: 24px;
 
   /* Typography */
@@ -40,7 +130,7 @@ html, body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* handled by folds-container */
+  overflow-x: hidden;
 }
 
 /* ---------- MESH GRADIENT BACKGROUND ---------- */
@@ -57,6 +147,12 @@ html, body {
     radial-gradient(circle at 50% 80%, rgba(24, 24, 27, 0.03) 0%, transparent 50%);
   background-color: var(--bg-color);
   animation: mesh-flow 20s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-mesh-bg {
+    animation: none;
+  }
 }
 
 @keyframes mesh-flow {
@@ -78,9 +174,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.04em;
   margin-bottom: 1.5rem;
-  background: linear-gradient(180deg, #09090B 0%, #3F3F46 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  text-shadow: 2px 2px 4px rgba(163,177,198,0.5), -2px -2px 4px rgba(255,255,255, 0.8);
 }
 
 .hero-subtitle {
@@ -124,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   font-size: 1rem;
   padding: 1rem 2rem;
-  border-radius: 30px; /* Apple pill shape */
+  border-radius: 30px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -135,26 +230,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-color);
+  background: var(--accent-primary);
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(9, 132, 227, 0.39);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(9, 132, 227, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-ghost {
-  background: var(--glass-bg);
+  background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--text-muted);
+  font-weight: 600;
 }
 
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: scale(1.02);
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
 /* ---------- HEADER & NAV ---------- */
@@ -166,10 +263,11 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 100;
   padding: 1rem 0;
   transition: all 0.4s ease;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(224, 229, 236, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(163, 177, 198, 0.3);
 }
 
 .header-container {
@@ -198,6 +296,13 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
 .nav-list {
   display: flex;
   gap: 1.5rem;
@@ -220,21 +325,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-cta {
-  background: var(--text-primary);
-  color: var(--bg-color);
+  background: var(--bg-color);
+  color: var(--accent-primary);
   padding: 0.6rem 1.2rem;
-  border-radius: 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s ease;
   font-size: 0.9rem;
   display: inline-block;
+  box-shadow: 4px 4px 8px rgb(163,177,198,0.6), -4px -4px 8px rgba(255,255,255, 0.8);
 }
 
 .nav-cta:hover {
-  background: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: inset 3px 3px 6px rgb(163,177,198,0.6), inset -3px -3px 6px rgba(255,255,255, 0.8);
+  transform: translateY(2px);
 }
 
 .menu-toggle {
@@ -263,18 +369,13 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------- FOLDS & SCROLL SNAP ---------- */
 .folds-container {
   position: relative;
-  height: 100vh;
-  overflow-y: scroll;
+  width: 100%;
   overflow-x: hidden;
 }
 
 .fold {
   min-height: 100vh;
   width: 100vw;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  display: flex;
-  align-items: center;
   padding: 6rem 0;
 }
 
@@ -314,10 +415,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.service-card:hover, .process-step:hover, .tech-cat:hover, .portfolio-item:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 1);
+.glass-panel:hover, .service-card:hover, .process-step:hover, .tech-cat:hover, .portfolio-item:hover {
+  box-shadow: inset 5px 5px 10px rgb(163,177,198,0.6), inset -5px -5px 10px rgba(255,255,255, 0.8);
+  transform: translateY(2px);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* ---------- SPECIFIC SECTIONS ---------- */
@@ -472,19 +573,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-group input, .form-group textarea {
   width: 100%;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  background: var(--bg-color);
+  border: 1px solid transparent;
+  border-radius: 8px;
   padding: 1rem;
   color: var(--text-primary);
   font-family: var(--font-body);
   transition: all 0.3s ease;
+  box-shadow: inset 4px 4px 8px rgb(163,177,198,0.6), inset -4px -4px 8px rgba(255,255,255, 0.8);
 }
 
 .form-group input:focus, .form-group textarea:focus {
   outline: none;
-  border-color: rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 6px 6px 12px rgb(163,177,198,0.7), inset -6px -6px 12px rgba(255,255,255, 0.9);
 }
 
 .footer {
@@ -549,3 +650,16 @@ h1, h2, h3, h4, h5, h6 {
 .preloader {
   display: none !important;
 }
+
+/* ---------- UTILITIES ---------- */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+

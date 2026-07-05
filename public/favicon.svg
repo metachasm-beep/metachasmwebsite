@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <style>
+      @keyframes cw   { to { transform: rotate( 360deg); } }
+      @keyframes ccw  { to { transform: rotate(-360deg); } }
+      @keyframes flicker  { 0%,100%{opacity:.45} 42%{opacity:1} 44%{opacity:.65} 46%{opacity:1} }
+      @keyframes flicker2 { 0%,100%{opacity:.45} 20%{opacity:1} 22%{opacity:.5}  24%{opacity:1} }
+      @keyframes flicker3 { 0%,100%{opacity:.45} 65%{opacity:1} 67%{opacity:.6}  69%{opacity:1} }
+      @keyframes corePulse{ 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.18);opacity:1} }
+      .r1 { transform-origin:50px 50px; animation:cw  18s linear infinite; }
+      .r2 { transform-origin:50px 50px; animation:ccw 11s linear infinite; }
+      .r3 { transform-origin:50px 50px; animation:cw   7s linear infinite; }
+      .n1 { animation:flicker  3.6s ease-in-out infinite; }
+      .n2 { animation:flicker2 3.6s ease-in-out infinite .9s; }
+      .n3 { animation:flicker3 3.6s ease-in-out infinite 1.8s; }
+      .cp { transform-origin:50px 50px; animation:corePulse 2.4s ease-in-out infinite; }
+    </style>
+    <linearGradient id="cg" x1="7" y1="50" x2="93" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#00D4FF" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#00D4FF" stop-opacity=".5"/>
+      <stop offset="50%"  stop-color="#00EEFF" stop-opacity="1"/>
+      <stop offset="78%"  stop-color="#00D4FF" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="mg" x1="7" y1="50" x2="93" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#FF0A6C" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#FF0A6C" stop-opacity=".5"/>
+      <stop offset="50%"  stop-color="#FF2EF7" stop-opacity="1"/>
+      <stop offset="78%"  stop-color="#FF0A6C" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#FF0A6C" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="vg" x1="7" y1="50" x2="93" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#7B00FF" stop-opacity="0"/>
+      <stop offset="22%"  stop-color="#7B00FF" stop-opacity=".5"/>
+      <stop offset="50%"  stop-color="#BF00FF" stop-opacity="1"/>
+      <stop offset="78%"  stop-color="#7B00FF" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#7B00FF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="nc" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="35%"  stop-color="#00EEFF" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nm" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="35%"  stop-color="#FF2EF7" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#FF0A6C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nv" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="35%"  stop-color="#BF00FF" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#7B00FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="28%"  stop-color="#C0F0FF" stop-opacity=".9"/>
+      <stop offset="58%"  stop-color="#00D4FF" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#7B00FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amb" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#00D4FF" stop-opacity=".09"/>
+      <stop offset="55%"  stop-color="#FF0A6C" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#7B00FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bloom" x="-140%" y="-140%" width="380%" height="380%">
+      <feGaussianBlur stdDeviation="5.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="lg" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.1" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="50" cy="50" r="46" fill="url(#amb)"/>
+
+  <!-- Ring 1: cyan, CW 18s, 0° -->
+  <g><g class="r1">
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="#00D4FF" stroke-width=".9" fill="none" stroke-opacity=".18"/>
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="url(#cg)" stroke-width="1.8" fill="none" filter="url(#lg)"/>
+    <g class="n1">
+      <circle cx="93" cy="50" r="6.5" fill="url(#nc)" filter="url(#bloom)"/>
+      <circle cx="93" cy="50" r="2.2" fill="#FFFFFF" fill-opacity=".97"/>
+    </g>
+    <circle cx="7" cy="50" r="1.6" fill="#00D4FF" fill-opacity=".25"/>
+  </g></g>
+
+  <!-- Ring 2: hot-pink, CCW 11s, 60° -->
+  <g transform="rotate(60 50 50)"><g class="r2">
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="#FF0A6C" stroke-width=".9" fill="none" stroke-opacity=".18"/>
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="url(#mg)" stroke-width="1.8" fill="none" filter="url(#lg)"/>
+    <g class="n2">
+      <circle cx="93" cy="50" r="5.8" fill="url(#nm)" filter="url(#bloom)"/>
+      <circle cx="93" cy="50" r="2"   fill="#FFFFFF" fill-opacity=".97"/>
+    </g>
+    <circle cx="7" cy="50" r="1.4" fill="#FF0A6C" fill-opacity=".25"/>
+  </g></g>
+
+  <!-- Ring 3: violet, CW 7s, 120° -->
+  <g transform="rotate(120 50 50)"><g class="r3">
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="#7B00FF" stroke-width=".9" fill="none" stroke-opacity=".18"/>
+    <ellipse cx="50" cy="50" rx="43" ry="13" stroke="url(#vg)" stroke-width="1.8" fill="none" filter="url(#lg)"/>
+    <g class="n3">
+      <circle cx="93" cy="50" r="5.2" fill="url(#nv)" filter="url(#bloom)"/>
+      <circle cx="93" cy="50" r="1.8" fill="#FFFFFF" fill-opacity=".97"/>
+    </g>
+    <circle cx="7" cy="50" r="1.3" fill="#7B00FF" fill-opacity=".25"/>
+  </g></g>
+
+  <!-- HUD brackets -->
+  <path d="M8,24 L8,8 L24,8"  stroke="#00D4FF" stroke-width="1.4" fill="none" stroke-linecap="square" stroke-opacity=".75" filter="url(#lg)"/>
+  <path d="M92,76 L92,92 L76,92" stroke="#FF0A6C" stroke-width="1.4" fill="none" stroke-linecap="square" stroke-opacity=".75" filter="url(#lg)"/>
+  <path d="M76,8 L92,8 L92,22" stroke="#7B00FF" stroke-width=".8" fill="none" stroke-linecap="square" stroke-opacity=".45"/>
+  <path d="M24,92 L8,92 L8,78" stroke="#7B00FF" stroke-width=".8" fill="none" stroke-linecap="square" stroke-opacity=".45"/>
+
+  <!-- Cardinal ticks -->
+  <line x1="50" y1="5"  x2="50" y2="10" stroke="#00D4FF" stroke-width=".7" stroke-opacity=".5"/>
+  <line x1="95" y1="50" x2="90" y2="50" stroke="#FF0A6C" stroke-width=".7" stroke-opacity=".5"/>
+  <line x1="50" y1="95" x2="50" y2="90" stroke="#7B00FF" stroke-width=".7" stroke-opacity=".4"/>
+  <line x1="5"  y1="50" x2="10" y2="50" stroke="#7B00FF" stroke-width=".7" stroke-opacity=".4"/>
+
+  <!-- Core singularity -->
+  <circle cx="50" cy="50" r="11" fill="url(#core)" filter="url(#glow)" class="cp"/>
+  <circle cx="50" cy="50" r="6"  stroke="#00D4FF" stroke-width=".7" fill="none" stroke-opacity=".4"/>
+  <circle cx="50" cy="50" r="4.5" fill="url(#core)" filter="url(#bloom)"/>
+  <circle cx="50" cy="50" r="2.4" fill="#FFFFFF" fill-opacity=".97"/>
+  <circle cx="50" cy="50" r="1.1" fill="#C8F8FF"/>
+</svg>
