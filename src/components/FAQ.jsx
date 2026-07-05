@@ -62,7 +62,7 @@ export default function FAQ() {
             [04] — Intel
           </p>
           <h2
-            className="text-[clamp(2.5rem,5vw,6rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
+            className="text-[clamp(2rem,5vw,6rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             F.A.Q

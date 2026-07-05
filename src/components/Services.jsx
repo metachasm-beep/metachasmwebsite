@@ -80,7 +80,7 @@ export default function Services() {
             [02] — Capabilities
           </p>
           <h2
-            className="text-[clamp(2.5rem,6vw,7rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
+            className="text-[clamp(2rem,6vw,7rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Terminal Index

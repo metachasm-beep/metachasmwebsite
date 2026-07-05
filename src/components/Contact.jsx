@@ -29,7 +29,7 @@ export default function Contact() {
           <p className="text-[10px] font-medium tracking-[0.3em] text-[#111111]/50 uppercase mb-8" style={{ fontFamily: 'var(--font-mono)' }}>
             [06] Contact Us
           </p>
-          <h2 className="text-5xl md:text-8xl tracking-tight text-[#111111] uppercase" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h2 className="text-[clamp(2.5rem,8vw,6rem)] tracking-tight text-[#111111] uppercase" style={{ fontFamily: 'var(--font-heading)' }}>
             Let's Talk<span className="text-[#0055FF]">.</span>
           </h2>
           <div className="mt-8 border-t border-[#111111]/20 pt-8 w-full max-w-md mx-auto">

@@ -452,7 +452,7 @@ export default function TunnelExperience() {
               {DECRYPTION_STATES.map((state, idx) => (
                 <h1 
                   key={idx}
-                  className={`hero-text-${idx} absolute inset-0 flex items-center justify-center text-[clamp(3rem,8vw,8.5rem)] font-black tracking-tight text-[#111111] leading-[0.85] uppercase whitespace-nowrap`}
+                  className={`hero-text-${idx} absolute inset-0 flex items-center justify-center text-[clamp(1.8rem,7.5vw,8.5rem)] font-black tracking-tight text-[#111111] leading-[0.85] uppercase break-words`}
                   style={{ 
                     fontFamily: 'var(--font-heading)',
                     pointerEvents: heroStep === idx ? 'auto' : 'none',

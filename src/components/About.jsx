@@ -65,7 +65,7 @@ export default function About() {
             className="font-black uppercase"
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.5rem, 7vw, 7rem)',
+              fontSize: 'clamp(1.8rem, 7vw, 7rem)',
               color: '#111111',
               lineHeight: 0.9,
               letterSpacing: '-0.03em',
@@ -77,7 +77,7 @@ export default function About() {
               className="font-black uppercase tracking-tighter"
               style={{
                 fontFamily: 'var(--font-heading)',
-                fontSize: 'clamp(2.5rem, 7vw, 7rem)',
+                fontSize: 'clamp(1.8rem, 7vw, 7rem)',
                 color: '#111111',
                 lineHeight: 0.9,
                 letterSpacing: '-0.03em',
@@ -120,7 +120,7 @@ export default function About() {
                 className="font-black leading-none flex items-center justify-center transition-colors duration-500 group-hover:text-[#0055FF]"
                 style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(3rem, 5vw, 5rem)',
+                  fontSize: 'clamp(2.25rem, 5vw, 5rem)',
                   color: '#111111',
                   letterSpacing: '-0.04em',
                 }}
