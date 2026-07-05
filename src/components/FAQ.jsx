@@ -79,7 +79,7 @@ export default function FAQ() {
                 className="w-full h-full"
                 width="100%"
               >
-                <div className="w-full h-full min-h-[220px] flex flex-col items-start justify-start text-left p-6 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
+                <div className="w-full min-h-[220px] flex flex-col items-start justify-start text-left p-6 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
                   
                   {/* Subtle index */}
                   <span

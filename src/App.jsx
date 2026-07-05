@@ -74,8 +74,8 @@ export default function App() {
         staggerOrder="left-to-right"
       />
       <GlobalRipple />
-      <div className="noise-bg">
-        <div className="app-container">
+      <div className="noise-bg overflow-x-hidden w-full max-w-[100vw]">
+        <div className="app-container overflow-x-hidden w-full max-w-[100vw]">
           <Header />
           <main className="folds-container" style={{ position: 'relative', zIndex: 1 }}>
             <ErrorBoundary>
