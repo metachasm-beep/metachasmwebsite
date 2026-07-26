@@ -33,18 +33,19 @@ export default function Contact() {
     setFormState('submitting');
     
     try {
-      const searchParams = new URLSearchParams();
-      searchParams.append('name', formData.name);
-      searchParams.append('email', formData.email);
-      searchParams.append('details', formData.details);
+      const jsonData = JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        details: formData.details
+      });
 
       await fetch('https://script.google.com/macros/s/AKfycbwvv3mIdaDrsYzdrOfX_fNqG35CN60drWfTgw0r6TRgdb5Tf1iT3gKhefq4hmcLMWhs/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: searchParams
+        body: jsonData
       });
       
       setFormState('success');
