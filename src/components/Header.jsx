@@ -22,6 +22,7 @@ const NAV_LINKS = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleFoldChange = (e) => {
