@@ -63,7 +63,8 @@ export default function App() {
         const NAV_HASHES = ['hero', 'ecosystem', 'capabilities', 'concept', 'architecture', 'intel', 'contact'];
         const index = NAV_HASHES.indexOf(hash);
         if (index > -1) {
-          window.scrollTo({ top: index * window.innerHeight, behavior: 'instant' });
+          const targetMultiplier = index === 0 ? 0 : index + 1;
+          window.scrollTo({ top: targetMultiplier * window.innerHeight, behavior: 'instant' });
         }
       }
     }, 100); // Small delay to let GSAP initialize the pinned height

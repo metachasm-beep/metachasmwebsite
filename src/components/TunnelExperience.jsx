@@ -82,8 +82,9 @@ export default function TunnelExperience() {
     const handleGoToFold = (e) => {
       const index = e.detail?.index;
       if (typeof index === 'number') {
+        const targetMultiplier = index === 0 ? 0 : index + 1;
         window.scrollTo({
-          top: index * window.innerHeight,
+          top: targetMultiplier * window.innerHeight,
           behavior: 'smooth'
         });
       }
