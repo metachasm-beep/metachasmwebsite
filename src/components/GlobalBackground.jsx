@@ -45,17 +45,17 @@ export default function GlobalBackground() {
       
       {/* LAYER 3: CORE (Deepest) */}
       <div className="bg-layer-3" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', visibility: 'hidden', willChange: 'transform' }}>
-        <img src="/images/minimal_layer3.png" alt="Core Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src="/images/minimal_layer3.webp" alt="Core Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </div>
 
       {/* LAYER 2: CIRCULAR APERTURE (Middle) */}
       <div className="bg-layer-2" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', visibility: 'hidden', willChange: 'transform' }}>
-        <img src="/images/minimal_layer2.png" alt="Circular Aperture Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src="/images/minimal_layer2.webp" alt="Circular Aperture Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </div>
 
       {/* LAYER 1: RECTANGULAR APERTURE (Front) */}
       <div className="bg-layer-1" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', willChange: 'transform' }}>
-        <img src="/images/minimal_layer1.png" alt="Rectangular Aperture Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src="/images/minimal_layer1.webp" alt="Rectangular Aperture Background" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </div>
       
       {/* Atmospheric overly to ensure glass panels stand out against bright backgrounds */}

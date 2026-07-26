@@ -1,9 +1,9 @@
 import React from 'react';
 
 const PROJECTS = [
-  { id: 1, title: 'Nexus', category: 'SaaS Platform', img: '/images/scifi_dashboard_1782463634379.png' },
-  { id: 2, title: 'Aura', category: 'Fintech Mobile', img: '/images/scifi_mobile_app_1782463650931.png' },
-  { id: 3, title: 'Omni', category: 'E-Commerce', img: '/images/scifi_analytics_web_1782463661918.png' },
+  { id: 1, title: 'Nexus', category: 'SaaS Platform', img: '/images/scifi_dashboard_1782463634379.webp' },
+  { id: 2, title: 'Aura', category: 'Fintech Mobile', img: '/images/scifi_mobile_app_1782463650931.webp' },
+  { id: 3, title: 'Omni', category: 'E-Commerce', img: '/images/scifi_analytics_web_1782463661918.webp' },
 ];
 
 export default function Portfolio() {

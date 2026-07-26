@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
 import Logo from './ui/Logo';
 
 // Folds mapping in TunnelExperience:
@@ -23,11 +23,11 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 20 && !scrolled) setScrolled(true);
+    else if (latest <= 20 && scrolled) setScrolled(false);
+  });
 
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') setIsOpen(false); };

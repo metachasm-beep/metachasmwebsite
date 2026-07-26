@@ -23,9 +23,9 @@ const TOTAL_LAYERS = 7;
 const DURATION = 0.72;
 const EASE = 'power3.inOut';
 
-// ALL non-active layers share ONE resting state — tiny, blurred, and culled.
-const RESTING = { scale: 0.05, autoAlpha: 0, filter: 'blur(30px)' };
-const ACTIVE  = { scale: 1,    autoAlpha: 1, filter: 'blur(0px)' };
+// Cinematic Crossfade: no scale, no blur, just opacity and slight Y-translation.
+const RESTING = { autoAlpha: 0, y: 40 };
+const ACTIVE  = { autoAlpha: 1, y: 0 };
 
 const DECRYPTION_STATES = [
   "METACHASM",
@@ -118,13 +118,14 @@ export default function TunnelExperience() {
     // Departing layer sits ON TOP (zIndex 60) so its exit is always seen.
     // Arriving layer starts BELOW (zIndex 50), grows up from underneath.
     gsap.set(prevEl, { ...ACTIVE,   zIndex: 60 });
-    gsap.set(nextEl, { ...RESTING,  zIndex: 50 });
+    // Arriving layer starts from the opposite direction
+    gsap.set(nextEl, { y: forward ? -40 : 40, autoAlpha: 0, zIndex: 50 });
 
     const tl = gsap.timeline({
       defaults: { duration: DURATION, ease: EASE },
       onComplete: () => {
         // Hard snap both layers to canonical states — no dirty transforms left.
-        gsap.set(prevEl, { ...RESTING, zIndex: 10 });
+        gsap.set(prevEl, { autoAlpha: 0, y: forward ? 40 : -40, zIndex: 10 });
         gsap.set(nextEl, { ...ACTIVE,  zIndex: 50 });
         currentLayer.current = nextIndex;
         isAnimating.current  = false;
@@ -132,14 +133,13 @@ export default function TunnelExperience() {
       },
     });
 
-    // Depart: forward → zooms past camera; backward → recedes.
+    // Depart: slides gently away while fading
     tl.to(prevEl, {
-      scale:   forward ? 12 : 0.05,
+      y: forward ? 40 : -40,
       autoAlpha: 0,
-      filter:  forward ? 'blur(20px)' : 'blur(30px)',
     }, 0);
 
-    // Arrive: always grows in from tiny — same motion forward and backward.
+    // Arrive: slides gently into place while fading in
     tl.to(nextEl, { ...ACTIVE }, 0);
 
     activeTween.current = tl;
@@ -260,20 +260,28 @@ export default function TunnelExperience() {
     };
     window.addEventListener('goToFold', handleGoToFold);
 
-    const onMouseMove = (e) => {
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth - 0.5) * 2;
-      const y = (e.clientY / innerHeight - 0.5) * 2;
-      
-      gsap.to('.parallax-bg', {
-        x: x * 30,
-        y: y * 30,
-        scale: 1.05,
-        duration: 1.5,
-        ease: 'power2.out',
-      });
+    const parallaxBgs = gsap.utils.toArray('.parallax-bg');
+    gsap.set(parallaxBgs, { scale: 1.05 });
+    
+    const xTo = gsap.quickTo(parallaxBgs, 'x', { duration: 1.5, ease: 'power2.out' });
+    const yTo = gsap.quickTo(parallaxBgs, 'y', { duration: 1.5, ease: 'power2.out' });
+
+    let winWidth = window.innerWidth;
+    let winHeight = window.innerHeight;
+    
+    const onResize = () => {
+      winWidth = window.innerWidth;
+      winHeight = window.innerHeight;
     };
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('resize', onResize, { passive: true });
+
+    const onMouseMove = (e) => {
+      const x = (e.clientX / winWidth - 0.5) * 2;
+      const y = (e.clientY / winHeight - 0.5) * 2;
+      xTo(x * 30);
+      yTo(y * 30);
+    };
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
 
     return () => {
       el.removeEventListener('wheel',      onWheel);
@@ -281,6 +289,7 @@ export default function TunnelExperience() {
       el.removeEventListener('touchend',   onTouchEnd);
       window.removeEventListener('goToFold', handleGoToFold);
       window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('resize', onResize);
       if (activeTween.current) activeTween.current.kill();
     };
   }, [resetAllLayers, onWheel, onTouchStart, onTouchEnd, goToLayer]);
@@ -294,7 +303,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 7 (index 6): CONTACT ──────────────────────────────────── */}
       <div className="tunnel-layer-6 absolute inset-0 will-change-transform flex flex-col overflow-hidden">
         <img
-          src="/assets/bg-parallax-contact.png"
+          src="/assets/bg-parallax-contact.webp"
           className="parallax-bg absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
           style={{ zIndex: -2, transform: 'scale(1.05)' }}
           alt=""
@@ -311,7 +320,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 6 (index 5): FAQ ─────────────────────────────────────── */}
       <div className="tunnel-layer-5 absolute inset-0 will-change-transform flex flex-col overflow-hidden">
         <img
-          src="/assets/bg-parallax-faq.png"
+          src="/assets/bg-parallax-faq.webp"
           className="parallax-bg absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
           style={{ zIndex: -2, transform: 'scale(1.05)' }}
           alt=""
@@ -328,7 +337,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 5 (index 4): TECH ─────────────────────────────────────── */}
       <div className="tunnel-layer-4 absolute inset-0 will-change-transform flex flex-col overflow-hidden">
         <img
-          src="/assets/bg-parallax-tech.png"
+          src="/assets/bg-parallax-tech.webp"
           className="parallax-bg absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
           style={{ zIndex: -2, transform: 'scale(1.05)' }}
           alt=""
@@ -345,7 +354,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 4 (index 3): TESTIMONIALS ─────────────────────────────── */}
       <div className="tunnel-layer-3 absolute inset-0 will-change-transform flex flex-col overflow-hidden">
         <img
-          src="/assets/bg-parallax-testimonials.png"
+          src="/assets/bg-parallax-testimonials.webp"
           className="parallax-bg absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none"
           style={{ zIndex: -2, transform: 'scale(1.05)' }}
           alt=""
@@ -362,7 +371,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 3 (index 2): SERVICES ─────────────────────────────────── */}
       <div className="tunnel-layer-2 absolute inset-0 will-change-transform flex flex-col">
         <img
-          src="/assets/fold-4.png"
+          src="/assets/fold-4.webp"
           className="absolute inset-0 w-full h-full object-cover opacity-65 pointer-events-none"
           style={{ zIndex: -1 }}
           alt=""
@@ -379,7 +388,7 @@ export default function TunnelExperience() {
       {/* ── LAYER 2 (index 1): ABOUT ────────────────────────────────────── */}
       <div className="tunnel-layer-1 absolute inset-0 will-change-transform flex flex-col">
         <img
-          src="/assets/fold-3.png"
+          src="/assets/fold-3.webp"
           className="absolute inset-0 w-full h-full object-cover opacity-65 pointer-events-none"
           style={{ zIndex: -1 }}
           alt=""
@@ -398,7 +407,7 @@ export default function TunnelExperience() {
         {/* Background / Environment */}
         <div className="absolute inset-0 bg-[#FAFAFA]" style={{ zIndex: -3 }} />
         <img
-          src="/assets/fold-1.png"
+          src="/assets/fold-1.webp"
           className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none mix-blend-luminosity grayscale"
           style={{ zIndex: -2 }}
           alt=""
