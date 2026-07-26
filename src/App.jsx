@@ -56,6 +56,18 @@ export default function App() {
     };
     window.addEventListener('openLegalModal', handleLegalModal);
 
+    // Deep linking initial scroll
+    setTimeout(() => {
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const NAV_HASHES = ['hero', 'ecosystem', 'capabilities', 'concept', 'architecture', 'intel', 'contact'];
+        const index = NAV_HASHES.indexOf(hash);
+        if (index > -1) {
+          window.scrollTo({ top: index * window.innerHeight, behavior: 'instant' });
+        }
+      }
+    }, 100); // Small delay to let GSAP initialize the pinned height
+
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
       window.removeEventListener('openLegalModal', handleLegalModal);

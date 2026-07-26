@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import Logo from './ui/Logo';
 
 // Folds mapping in TunnelExperience:
@@ -12,22 +12,34 @@ import Logo from './ui/Logo';
 // 5: FAQ (Intel)
 // 6: Contact (Initiate)
 const NAV_LINKS = [
-  { label: 'Ecosystem', index: 1, code: '01' },
-  { label: 'Capabilities', index: 2, code: '02' },
-  { label: 'Concept', index: 3, code: '03' },
-  { label: 'Architecture', index: 4, code: '04' },
-  { label: 'Intel', index: 5, code: '05' },
+  { label: 'Ecosystem', index: 1, code: '01', hash: 'ecosystem' },
+  { label: 'Capabilities', index: 2, code: '02', hash: 'capabilities' },
+  { label: 'Concept', index: 3, code: '03', hash: 'concept' },
+  { label: 'Architecture', index: 4, code: '04', hash: 'architecture' },
+  { label: 'Intel', index: 5, code: '05', hash: 'intel' },
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 20 && !scrolled) setScrolled(true);
-    else if (latest <= 20 && scrolled) setScrolled(false);
-  });
+  useEffect(() => {
+    const handleFoldChange = (e) => {
+      const idx = e.detail?.index;
+      if (typeof idx === 'number') {
+        setActiveIndex(idx);
+        setScrolled(idx > 0);
+        
+        // Deep linking synchronization
+        const hash = e.detail?.hash;
+        if (hash) {
+          window.history.replaceState(null, null, `#${hash}`);
+        }
+      }
+    };
+    window.addEventListener('foldChange', handleFoldChange);
+    return () => window.removeEventListener('foldChange', handleFoldChange);
+  }, []);
 
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') setIsOpen(false); };
@@ -70,12 +82,16 @@ export default function Header() {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.code}
-                href={`#fold-${link.index}`}
+                href={`#${link.hash}`}
                 onClick={(e) => handleNavClick(e, link.index)}
-                className="relative flex items-center px-4 xl:px-8 py-5 text-[10px] xl:text-xs tracking-widest uppercase text-[#111111]/50 hover:text-[#111111] transition-colors duration-300 group"
+                className={`relative flex items-center px-4 xl:px-8 py-5 text-[10px] xl:text-xs tracking-widest uppercase transition-colors duration-300 group ${
+                  activeIndex === link.index ? 'text-[#0055FF] font-bold' : 'text-[#111111]/50 hover:text-[#111111]'
+                }`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-4 right-4 h-px bg-[#111111] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <span className={`absolute bottom-0 left-4 right-4 h-px transition-transform duration-300 origin-left ${
+                  activeIndex === link.index ? 'bg-[#0055FF] scale-x-100' : 'bg-[#111111] scale-x-0 group-hover:scale-x-100'
+                }`} />
               </a>
             ))}
           </nav>
@@ -127,12 +143,14 @@ export default function Header() {
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.code}
-                  href={`#fold-${link.index}`}
+                  href={`#${link.hash}`}
                   onClick={(e) => handleNavClick(e, link.index)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.3 }}
-                  className="flex items-baseline py-5 border-b border-[#111111]/10 text-3xl md:text-4xl text-[#111111] hover:pl-4 transition-all duration-300"
+                  className={`flex items-baseline py-5 border-b border-[#111111]/10 text-3xl md:text-4xl transition-all duration-300 ${
+                    activeIndex === link.index ? 'text-[#0055FF] pl-4 font-bold' : 'text-[#111111] hover:pl-4'
+                  }`}
                 >
                   {link.label}
                 </motion.a>
