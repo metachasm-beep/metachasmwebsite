@@ -71,14 +71,6 @@ function generateHexSpiral(n) {
 export default function Tech() {
   const containerRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Use useMemo to generate the grid once
   const hexGrid = useMemo(() => {
@@ -169,8 +161,6 @@ export default function Tech() {
           dragConstraints={{ left: -1000, right: 1000, top: -1000, bottom: 1000 }}
           dragElastic={0.1}
           dragTransition={{ bounceStiffness: 100, bounceDamping: 10 }}
-          animate={{ scale: isMobile ? 0.35 : 1 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="absolute w-[3000px] h-[3000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <div className="absolute left-1/2 top-1/2 w-0 h-0">
