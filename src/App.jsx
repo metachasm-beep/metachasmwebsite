@@ -22,11 +22,8 @@ import Lenis from '@studio-freight/lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-import PreviewLab from './components/previews/PreviewLab.jsx';
-
 export default function App() {
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: null });
-  const [showPreviews, setShowPreviews] = useState(true);
 
   useEffect(() => {
     // Initialize Lenis
@@ -80,7 +77,6 @@ export default function App() {
 
   return (
     <TooltipProvider delayDuration={100}>
-      {showPreviews && <PreviewLab onClose={() => setShowPreviews(false)} />}
       <CursorSpotlight />
       <CinematicOverlay />
       <RevealLoader 
