@@ -16,6 +16,7 @@ import CursorSpotlight from './components/ui/CursorSpotlight.jsx';
 import CinematicOverlay from './components/ui/CinematicOverlay.jsx';
 import WebGLTest from './components/WebGLTest.jsx';
 import { GlobalRipple } from './components/ui/global-ripple';
+import NavigationDots from './components/NavigationDots.jsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
@@ -87,6 +88,7 @@ export default function App() {
         staggerOrder="left-to-right"
       />
       <GlobalRipple />
+      <NavigationDots />
       <div className="noise-bg overflow-x-hidden w-full max-w-[100vw]">
         <div className="app-container overflow-x-hidden w-full max-w-[100vw]">
           <Header />
