@@ -54,7 +54,7 @@ export default function Tech() {
         Using pt-[12vh] to clear the global HUD overlay headers in TunnelExperience
       */}
       <div className="flex-none pt-[12vh] md:pt-[15vh] pb-4 px-4 md:px-8 border-b border-[#111111]/10 relative z-10">
-        <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 items-center">
+        <div className="max-w-6xl mx-auto flex overflow-x-auto md:justify-center snap-x snap-mandatory hide-scrollbar gap-4 items-center">
           <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40 mr-2 shrink-0 hidden md:block">
             Select Spec:
           </span>
@@ -79,49 +79,51 @@ export default function Tech() {
         flex-1 forces this container to take all remaining height exactly.
       */}
       <div className="flex-1 w-full flex flex-col px-4 md:px-8 pb-8 relative z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="flex-1 w-full h-full flex flex-col"
-          >
-            {TECH_CATEGORIES[activeTab].items.map((tech, i) => (
-              <div 
-                key={i} 
-                className="flex-1 flex flex-col justify-center border-b border-[#111111]/10 last:border-b-0 group cursor-default"
-              >
-                <div className="flex flex-row items-center justify-between w-full h-full py-2 gap-4">
-                  
-                  {/* Huge numerical index */}
-                  <div className="flex-none w-16 md:w-24 overflow-hidden flex items-center">
-                    <span className="text-5xl md:text-7xl font-light tracking-tighter text-[#111111]/10 -ml-2 group-hover:text-[#111111]/30 transition-colors duration-500">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                  </div>
+        <div className="w-full h-full max-w-6xl mx-auto flex flex-col">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="flex-1 w-full h-full flex flex-col"
+            >
+              {TECH_CATEGORIES[activeTab].items.map((tech, i) => (
+                <div 
+                  key={i} 
+                  className="flex-1 flex flex-col justify-center border-b border-[#111111]/10 last:border-b-0 group cursor-default"
+                >
+                  <div className="flex flex-row items-center justify-between w-full h-full py-2 gap-4">
+                    
+                    {/* Huge numerical index */}
+                    <div className="flex-none w-16 md:w-24 overflow-hidden flex items-center">
+                      <span className="text-5xl md:text-7xl font-light tracking-tighter text-[#111111]/10 -ml-2 group-hover:text-[#111111]/30 transition-colors duration-500">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                    </div>
 
-                  {/* Content block: Tech name and 1-line copy */}
-                  <div className="flex-1 flex flex-col md:flex-row md:items-center justify-start gap-1 md:gap-8 min-w-0">
-                    <h3 className="text-xl md:text-3xl font-medium tracking-tight whitespace-nowrap text-[#111111]">
-                      {tech.name}
-                    </h3>
-                    <p className="text-[10px] md:text-xs text-[#111111]/60 truncate font-mono uppercase tracking-widest mt-1 md:mt-0">
-                      {tech.desc}
-                    </p>
+                    {/* Content block: Tech name and 1-line copy */}
+                    <div className="flex-1 flex flex-col md:flex-row md:items-center justify-start gap-1 md:gap-8 min-w-0">
+                      <h3 className="text-xl md:text-3xl font-medium tracking-tight whitespace-nowrap text-[#111111]">
+                        {tech.name}
+                      </h3>
+                      <p className="text-[10px] md:text-xs text-[#111111]/60 truncate font-mono uppercase tracking-widest mt-1 md:mt-0">
+                        {tech.desc}
+                      </p>
+                    </div>
+                    
+                    {/* Status Indicator */}
+                    <div className="flex-none w-4 h-4 rounded-full border border-[#111111]/20 flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#111111]/30 group-hover:bg-[#111111] transition-colors" />
+                    </div>
+                    
                   </div>
-                  
-                  {/* Status Indicator */}
-                  <div className="flex-none w-4 h-4 rounded-full border border-[#111111]/20 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#111111]/30 group-hover:bg-[#111111] transition-colors" />
-                  </div>
-                  
                 </div>
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
