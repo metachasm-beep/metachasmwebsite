@@ -14,7 +14,6 @@ import { TooltipProvider } from './components/ui/tooltip';
 import RevealLoader from './components/ui/reveal-loader';
 import CursorSpotlight from './components/ui/CursorSpotlight.jsx';
 import CinematicOverlay from './components/ui/CinematicOverlay.jsx';
-import WebGLTest from './components/WebGLTest.jsx';
 import { GlobalRipple } from './components/ui/global-ripple';
 import NavigationDots from './components/NavigationDots.jsx';
 import gsap from 'gsap';
@@ -23,8 +22,11 @@ import Lenis from '@studio-freight/lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import PreviewLab from './components/previews/PreviewLab.jsx';
+
 export default function App() {
   const [legalModal, setLegalModal] = useState({ isOpen: false, type: null });
+  const [showPreviews, setShowPreviews] = useState(true);
 
   useEffect(() => {
     // Initialize Lenis
@@ -78,6 +80,7 @@ export default function App() {
 
   return (
     <TooltipProvider delayDuration={100}>
+      {showPreviews && <PreviewLab onClose={() => setShowPreviews(false)} />}
       <CursorSpotlight />
       <CinematicOverlay />
       <RevealLoader 
