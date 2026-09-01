@@ -35,10 +35,10 @@ export default function Testimonials() {
       id="testimonials"
       className="relative min-h-screen flex flex-col items-center justify-center bg-transparent text-[#111111] overflow-hidden"
     >
-      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-6 py-12 md:py-24">
+      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-6 py-8 md:py-24">
         
         {/* Header section perfectly centered */}
-        <div className="w-full flex flex-col items-center text-center mb-12 md:mb-20">
+        <div className="w-full flex flex-col items-center text-center mb-8 md:mb-20">
           <p
             className="text-[10px] font-medium tracking-[0.4em] text-[#111111]/40 uppercase mb-6"
             style={{ fontFamily: 'var(--font-mono)' }}
@@ -56,7 +56,7 @@ export default function Testimonials() {
         {/* Minimalist Data Log / Testimonial Viewer */}
         <div className="w-full max-w-4xl flex flex-col items-center justify-center relative min-h-[300px]">
           
-          <div className="w-full border-t border-b border-[#111111]/15 py-8 md:py-16 px-4 md:px-12 flex flex-col items-center text-center relative overflow-visible bg-[#F9F9F6]/20">
+          <div className="w-full border-t border-b border-[#111111]/15 py-6 md:py-16 px-4 md:px-12 flex flex-col items-center text-center relative overflow-visible bg-[#F9F9F6]/20">
             {/* Scanline Background */}
             <div
               className="absolute inset-0 opacity-[0.02] pointer-events-none"
@@ -78,7 +78,7 @@ export default function Testimonials() {
                 {/* Quote Text */}
                 <p 
                   className="leading-relaxed md:leading-snug mb-6 md:mb-8 max-w-3xl text-[#111111]/80"
-                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(1.1rem, 4vw, 1.875rem)' }}
+                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontStyle: 'italic', fontSize: 'clamp(1rem, 4vw, 1.875rem)' }}
                 >
                   "{TESTIMONIALS[activeIndex].description}"
                 </p>
@@ -103,7 +103,7 @@ export default function Testimonials() {
           </div>
 
           {/* Indicators */}
-          <div className="flex items-center gap-4 mt-8">
+          <div className="flex items-center gap-4 mt-6 md:mt-8">
             {TESTIMONIALS.map((_, idx) => (
               <button
                 key={idx}

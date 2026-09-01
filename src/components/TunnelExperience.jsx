@@ -168,7 +168,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/75 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <Contact />
           </div>
         </div>
@@ -185,7 +185,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/80 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <FAQ />
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/75 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <Tech />
           </div>
         </div>
@@ -219,7 +219,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/80 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <Testimonials />
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/75 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <Services />
           </div>
         </div>
@@ -253,7 +253,7 @@ export default function TunnelExperience() {
             className="absolute inset-0 bg-[#F9F9F6]/75 pointer-events-none"
             style={{ zIndex: -1 }}
           />
-          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start pt-20 lg:pt-0">
+          <div className="relative w-full h-full overflow-y-auto pointer-events-auto hide-scrollbar flex flex-col justify-start">
             <About />
           </div>
         </div>

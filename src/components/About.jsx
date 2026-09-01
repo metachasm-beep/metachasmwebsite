@@ -43,7 +43,7 @@ export default function About() {
       id="about"
       className="relative min-h-screen flex flex-col items-center justify-center bg-transparent text-[#111111] overflow-hidden"
     >
-      <div className="relative z-10 flex flex-col items-center text-center gap-16 w-full max-w-[1400px] mx-auto px-6 py-12 md:py-24">
+      <div className="relative z-10 flex flex-col items-center text-center gap-10 md:gap-16 w-full max-w-[1400px] mx-auto px-6 py-8 md:py-24">
 
         {/* ── HEADER BAR ───────────────────────────────────────────────── */}
         <div className="w-full flex flex-col items-center text-center mb-4 md:mb-8">
@@ -111,7 +111,7 @@ export default function About() {
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className={`flex flex-col items-center gap-3 py-10 px-4 group ${
+              className={`flex flex-col items-center gap-3 py-6 md:py-10 px-4 group ${
                 i < STATS.length - 1 ? 'md:border-r border-b md:border-b-0' : ''
               }`}
               style={{ borderColor: 'rgba(17,17,17,0.1)' }}
@@ -143,7 +143,7 @@ export default function About() {
         </div>
 
         {/* ── TWO PILLARS ──────────────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row justify-center items-start w-full gap-16 md:gap-32 mt-4">
+        <div className="flex flex-col md:flex-row justify-center items-start w-full gap-10 md:gap-32 mt-4">
           {PILLARS.map((pillar) => (
             <div
               key={pillar.id}

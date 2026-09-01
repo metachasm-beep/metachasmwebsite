@@ -14,17 +14,19 @@ export default function Hero() {
               delay={50}
               animateBy="letters"
               direction="top"
-              className="title-line"
+              className="text-[clamp(2.5rem,10vw,8rem)] font-black uppercase leading-[0.9] tracking-tighter"
+              style={{ fontFamily: 'var(--font-heading)' }}
             />
             <BlurText 
               text="TOMORROW" 
               delay={50}
               animateBy="letters"
               direction="bottom"
-              className="title-line"
+              className="text-[clamp(2.5rem,10vw,8rem)] font-black uppercase leading-[0.9] tracking-tighter text-[#0055FF]"
+              style={{ fontFamily: 'var(--font-heading)' }}
             />
           </h1>
-          <p className="hero-subtitle reveal-up" style={{ marginTop: '2rem', maxWidth: '700px', marginLeft: 'auto', marginRight: 'auto' }} data-delay="300">
+          <p className="hero-subtitle reveal-up text-base md:text-xl text-[#111111]/70 px-4" style={{ marginTop: '1.5rem', maxWidth: '700px', marginLeft: 'auto', marginRight: 'auto', fontFamily: 'var(--font-sans)', fontWeight: 300 }} data-delay="300">
             The gap between idea and live product? That's us.
           </p>
           <div className="hero-cta-group reveal-up" style={{ marginTop: '2.5rem', display: 'flex', gap: '1rem', justifyContent: 'center' }} data-delay="400">

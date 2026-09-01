@@ -92,10 +92,10 @@ export default function Tech() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#F9F9F6]/0 via-[#F9F9F6]/80 to-[#F9F9F6]/0 pointer-events-none z-0" />
       
       {/* ── MAIN CONTENT CONTAINER ── */}
-      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1400px] mx-auto px-4 md:px-8 py-12 md:py-24">
+      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1400px] mx-auto px-4 md:px-8 py-8 md:py-24">
         
         {/* Header section */}
-        <div className="w-full flex flex-col items-center text-center mb-12 md:mb-20">
+        <div className="w-full flex flex-col items-center text-center mb-8 md:mb-20">
           <p
             className="text-[10px] font-medium tracking-[0.4em] text-[#111111]/40 uppercase mb-6"
             style={{ fontFamily: 'var(--font-mono)' }}
@@ -135,7 +135,7 @@ export default function Tech() {
         </div>
 
         {/* ── ARCHITECTURE PILLARS (GLOW BORDER CARDS) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-start relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8 w-full max-w-6xl items-start relative">
           {TECH_CATEGORIES.map((cat, idx) => (
             <motion.div 
               key={idx} 
@@ -165,7 +165,7 @@ export default function Tech() {
                 width="100%"
                 height="auto"
               >
-                <div className="w-full h-auto max-h-[55vh] md:max-h-none flex flex-col items-start p-6 md:p-8 bg-[#F9F9F6]/50 backdrop-blur-sm relative overflow-y-auto md:overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/80 pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="w-full h-auto max-h-[55vh] md:max-h-none flex flex-col items-start p-5 md:p-8 bg-[#F9F9F6]/50 backdrop-blur-sm relative overflow-y-auto md:overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/80 pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   
                   {/* Category Header */}
                   <div className="w-full flex justify-between items-start mb-10 border-b border-[#111111]/10 pb-6">
@@ -199,13 +199,13 @@ export default function Tech() {
                   </h3>
 
                   {/* Tech items Grid */}
-                  <div className="flex flex-wrap gap-3 w-full">
+                  <div className="flex flex-wrap gap-2 md:gap-3 w-full">
                     {cat.items.map((item, itemIdx) => (
                       <div key={itemIdx} className="tech-item-reveal opacity-0 w-auto">
                         <Magnet padding={15} magnetStrength={2}>
-                          <div className="px-4 py-2 border border-[#111111]/15 rounded bg-transparent group/item transition-colors duration-300 hover:border-[#0055FF] hover:bg-[#0055FF]/5">
+                          <div className="px-3 py-1.5 md:px-4 md:py-2 border border-[#111111]/15 rounded bg-transparent group/item transition-colors duration-300 hover:border-[#0055FF] hover:bg-[#0055FF]/5">
                             <span
-                              className="text-xs md:text-sm tracking-[0.15em] uppercase text-[#111111]/70 group-hover/item:text-[#0055FF] transition-colors duration-300"
+                              className="text-[10px] md:text-sm tracking-[0.15em] uppercase text-[#111111]/70 group-hover/item:text-[#0055FF] transition-colors duration-300"
                               style={{ fontFamily: 'var(--font-mono)' }}
                             >
                               {item}

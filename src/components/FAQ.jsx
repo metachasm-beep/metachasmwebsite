@@ -69,7 +69,7 @@ export default function FAQ() {
           </h2>
         </div>
 
-        <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full pb-8 md:pb-0 pt-2 px-4 md:px-0 -mx-4 md:mx-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="flex overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 w-full pb-8 md:pb-0 pt-2 px-4 md:px-0 -mx-4 md:mx-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" style={{ WebkitOverflowScrolling: 'touch' }}>
           {FAQ_ITEMS.map((item) => (
             <div key={item.id} className="group relative w-[85vw] sm:w-[60vw] md:w-full h-full shrink-0 snap-center md:snap-align-none">
               <GlowBorderCard
@@ -79,7 +79,7 @@ export default function FAQ() {
                 className="w-full h-full"
                 width="100%"
               >
-                <div className="w-full min-h-[220px] flex flex-col items-start justify-start text-left p-6 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
+                <div className="w-full min-h-[220px] flex flex-col items-start justify-start text-left p-5 md:p-8 bg-[#F9F9F6]/30 relative overflow-hidden transition-colors duration-500 group-hover:bg-[#F9F9F6]/60">
                   
                   {/* Subtle index */}
                   <span

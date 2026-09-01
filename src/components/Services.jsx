@@ -69,10 +69,10 @@ export default function Services() {
       </svg>
       
       {/* Main Centered Container */}
-      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-24">
+      <div className="w-full flex flex-col items-center justify-center relative z-10 flex-1 max-w-[1200px] mx-auto px-4 md:px-6 py-8 md:py-24">
         
         {/* Header section perfectly centered */}
-        <div className="w-full flex flex-col items-center text-center mb-16 md:mb-24">
+        <div className="w-full flex flex-col items-center text-center mb-10 md:mb-24">
           <p
             className="text-[10px] font-medium tracking-[0.4em] text-[#111111]/40 uppercase mb-6"
             style={{ fontFamily: 'var(--font-mono)' }}
@@ -88,14 +88,14 @@ export default function Services() {
         </div>
 
         {/* Accordion List */}
-        <div className="w-full flex flex-col gap-6 md:gap-12 max-w-6xl mt-4 md:mt-8 border-t border-[#111111]/15 pt-6 md:pt-12">
+        <div className="w-full flex flex-col gap-4 md:gap-12 max-w-6xl mt-4 md:mt-8 border-t border-[#111111]/15 pt-4 md:pt-12">
           {SERVICES.map((service, index) => {
             const isActive = activeIndex === index;
             
             return (
               <div 
                 key={service.id}
-                className="w-full border-b border-[#111111]/10 relative group cursor-pointer transition-colors duration-300 hover:bg-[#F9F9F6]/40 pb-6 md:pb-10"
+                className="w-full border-b border-[#111111]/10 relative group cursor-pointer transition-colors duration-300 hover:bg-[#F9F9F6]/40 pb-4 md:pb-10"
                 onClick={() => setActiveIndex(isActive ? -1 : index)}
               >
                 {/* Accordion Header */}
@@ -113,7 +113,7 @@ export default function Services() {
                   {/* Center: Title */}
                   <div className="flex-1 flex justify-start md:justify-center overflow-hidden">
                     <h3 
-                      className={`text-xl md:text-5xl font-black uppercase tracking-tighter transition-all duration-500 break-words ${isActive ? 'text-[#111111] scale-[1.02] md:scale-105' : 'text-[#111111]/70 group-hover:text-[#111111]'}`}
+                      className={`text-2xl md:text-5xl font-black uppercase tracking-tighter transition-all duration-500 break-words ${isActive ? 'text-[#111111] scale-[1.02] md:scale-105' : 'text-[#111111]/70 group-hover:text-[#111111]'}`}
                       style={{ fontFamily: 'var(--font-heading)' }}
                     >
                       <DecryptedText
@@ -146,7 +146,7 @@ export default function Services() {
                 >
                   <div className="w-full flex flex-col items-center text-center px-4 md:px-8 max-w-3xl mx-auto">
                     <p 
-                      className="text-lg md:text-xl leading-relaxed text-[#111111]/70 mb-8"
+                      className="text-base md:text-xl leading-relaxed text-[#111111]/70 mb-8"
                       style={{ fontFamily: 'var(--font-sans)', fontWeight: 300 }}
                     >
                       {service.desc}
@@ -155,7 +155,7 @@ export default function Services() {
                       {service.keywords.map((kw, i) => (
                         <span
                           key={i}
-                          className="text-[10px] tracking-[0.25em] uppercase px-5 py-3 border transition-colors duration-300 border-[#111111]/20 text-[#111111]/60 bg-transparent hover:border-[#0055FF] hover:text-[#0055FF]"
+                          className="text-[10px] tracking-[0.25em] uppercase px-3 py-2 md:px-5 md:py-3 border transition-colors duration-300 border-[#111111]/20 text-[#111111]/60 bg-transparent hover:border-[#0055FF] hover:text-[#0055FF]"
                           style={{ fontFamily: 'var(--font-mono)' }}
                         >
                           {kw}
