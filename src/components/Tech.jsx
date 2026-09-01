@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 
 const TECH_CATEGORIES = [
   {
     id: '01',
-    title: 'Frontend Ecosystem',
+    title: 'Frontend',
     color: '#0055FF',
     items: [
       'React 19', 'Next.js 15', 'Tailwind v4', 'WebGL', 'Three.js', 'GSAP', 'Framer Motion', 'Zustand', 'WebAssembly', 'Vite', 'TypeScript',
@@ -16,7 +16,7 @@ const TECH_CATEGORIES = [
   },
   {
     id: '02',
-    title: 'Backend & Cloud',
+    title: 'Backend',
     color: '#FF3366',
     items: [
       'Node.js', 'Go', 'Rust', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'AWS', 'Vercel', 'Cloudflare', 'GraphQL', 'gRPC',
@@ -29,7 +29,7 @@ const TECH_CATEGORIES = [
   },
   {
     id: '03',
-    title: 'Mobile & Native',
+    title: 'Mobile',
     color: '#00E676',
     items: [
       'Swift', 'Kotlin', 'React Native', 'Expo', 'iOS', 'Android', 'Flutter', 'CoreML', 'Metal API', 'ARKit', 'WebRTC',
@@ -42,185 +42,171 @@ const TECH_CATEGORIES = [
   },
 ];
 
-// Generate an array of all technologies with their category info attached
 const ALL_TECH = TECH_CATEGORIES.flatMap(cat => 
   cat.items.map(item => ({ name: item, category: cat.title, color: cat.color, id: cat.id }))
 );
 
-// Helper to generate hexagonal spiral coordinates (axial q, r)
-function generateHexSpiral(n) {
-  const coords = [[0, 0]];
-  const directions = [[1, 0], [1, -1], [0, -1], [-1, 0], [-1, 1], [0, 1]];
-  let radius = 1;
-  while (coords.length < n) {
-    let q = -radius;
-    let r = radius;
-    for (const [dq, dr] of directions) {
-      for (let i = 0; i < radius; i++) {
-        if (coords.length >= n) break;
-        coords.push([q, r]);
-        q += dq;
-        r += dr;
-      }
+// Glitch Text Component for Hover
+const GlitchText = ({ text, isHovered, defaultColor, highlightColor }) => {
+  const [displayText, setDisplayText] = useState(text);
+  const chars = '!<>-_\\\\/[]{}—=+*^?#_';
+  
+  useEffect(() => {
+    if (!isHovered) {
+      setDisplayText(text);
+      return;
     }
-    radius++;
-  }
-  return coords;
-}
+    
+    let iterations = 0;
+    const interval = setInterval(() => {
+      setDisplayText(prev => 
+        prev.split('').map((letter, index) => {
+          if (index < iterations) return text[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join('')
+      );
+      if (iterations >= text.length) clearInterval(interval);
+      iterations += 1 / 3;
+    }, 30);
+    
+    return () => clearInterval(interval);
+  }, [isHovered, text]);
+
+  return (
+    <span style={{ color: isHovered ? highlightColor : defaultColor, transition: 'color 0.2s' }}>
+      {displayText}
+    </span>
+  );
+};
+
+// A single column streaming down
+const MatrixColumn = ({ items, speed, delay }) => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  
+  return (
+    <div className="relative overflow-hidden h-full flex-1 border-r border-[#0055FF]/20 last:border-r-0">
+      <motion.div 
+        className="flex flex-col w-full absolute top-0 left-0"
+        animate={{ y: ['-50%', '0%'] }}
+        transition={{ 
+          repeat: Infinity, 
+          ease: 'linear', 
+          duration: speed,
+          delay: delay
+        }}
+      >
+        {/* We duplicate the items to create a seamless loop */}
+        {[...items, ...items].map((tech, i) => (
+          <div 
+            key={i} 
+            className="py-3 px-2 md:px-4 cursor-crosshair group flex flex-col border-b border-[#0055FF]/10 hover:bg-[#0055FF]/10 transition-colors"
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <div className="flex justify-between items-center opacity-40 mb-1">
+              <span className="text-[8px] md:text-[10px] tracking-widest text-[#0055FF]">SYS_{tech.id}</span>
+              <span className="text-[8px] md:text-[10px] text-[#F9F9F6]/30">[{tech.category}]</span>
+            </div>
+            <div className="text-xs md:text-sm lg:text-base font-bold tracking-wider break-words uppercase">
+              <GlitchText 
+                text={tech.name} 
+                isHovered={hoveredIndex === i} 
+                defaultColor="#F9F9F6" 
+                highlightColor={tech.color} 
+              />
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 export default function Tech() {
   const containerRef = useRef(null);
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [columns, setColumns] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Use useMemo to generate the grid once
-  const hexGrid = useMemo(() => {
-    const size = window.innerWidth < 768 ? 45 : 65; // Hexagon radius
-    const gap = window.innerWidth < 768 ? 4 : 6;
-    const s = size + gap;
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      // Determine columns based on screen width
+      const numCols = mobile ? 2 : window.innerWidth < 1024 ? 3 : 5;
+      
+      // Shuffle ALL_TECH to distribute randomly across columns
+      const shuffled = [...ALL_TECH].sort(() => 0.5 - Math.random());
+      const cols = Array.from({ length: numCols }, () => []);
+      
+      shuffled.forEach((tech, i) => {
+        cols[i % numCols].push(tech);
+      });
+      
+      setColumns(cols);
+    };
     
-    // Shuffle or organize ALL_TECH. Let's group them by category slightly, or just random
-    // A simple grouped sort
-    const sortedTech = [...ALL_TECH].sort((a, b) => a.id.localeCompare(b.id));
-    const spiral = generateHexSpiral(sortedTech.length);
-    
-    return sortedTech.map((tech, index) => {
-      const [q, r] = spiral[index];
-      // Pointy-topped hex to pixel conversion
-      const x = s * Math.sqrt(3) * (q + r / 2);
-      const y = s * (3 / 2) * r;
-      return { ...tech, x, y, size };
-    });
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <section
       ref={containerRef}
-      className="fold min-h-screen w-full flex flex-col items-center justify-center bg-transparent text-[#111111] relative overflow-hidden"
+      className="fold min-h-screen w-full flex flex-col items-center justify-center bg-[#050505] text-[#F9F9F6] relative overflow-hidden"
       id="tech"
+      style={{ fontFamily: 'var(--font-mono)' }}
     >
-      {/* ── BACKGROUND ENGINEERING GRID ── */}
+      {/* ── MATRIX SCANLINE OVERLAY ── */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 z-50 pointer-events-none opacity-[0.05]"
         style={{
-          backgroundImage: `
-            linear-gradient(to right, #111111 1px, transparent 1px),
-            linear-gradient(to bottom, #111111 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px'
+          backgroundImage: `linear-gradient(rgba(0,0,0,0) 50%, rgba(0, 85, 255, 0.2) 50%)`,
+          backgroundSize: '100% 4px',
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F9F9F6]/0 via-[#F9F9F6]/80 to-[#F9F9F6]/0 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay z-40 pointer-events-none" />
       
-      {/* ── HEADER ── */}
-      <div className="absolute top-12 md:top-24 w-full flex flex-col items-center text-center z-20 pointer-events-none">
-        <p
-          className="text-[10px] font-medium tracking-[0.4em] text-[#111111]/40 uppercase mb-4"
-          style={{ fontFamily: 'var(--font-mono)' }}
-        >
-          [05] — Architecture
-        </p>
+      {/* ── HEADER / TERMINAL PROMPT ── */}
+      <div className="absolute top-0 left-0 w-full p-4 md:p-8 z-30 flex flex-col gap-2 pointer-events-none bg-gradient-to-b from-[#050505] to-transparent pb-16">
+        <div className="flex justify-between items-center opacity-60">
+          <span className="text-[10px] md:text-xs text-[#0055FF]">root@metachasm:~# ./view_architecture.sh</span>
+          <span className="text-[10px] md:text-xs">TIME: {new Date().toLocaleTimeString()}</span>
+        </div>
         <h2
-          className="text-[clamp(2rem,5vw,5rem)] font-black tracking-tighter text-[#111111] uppercase leading-none"
+          className="text-2xl md:text-5xl font-black tracking-tighter uppercase leading-none mt-2 text-white"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
-          The Stack
+          <span className="text-[#0055FF] mr-2">{"//"}</span> THE STACK
         </h2>
-        
-        {/* Category Legend */}
-        <div className="mt-6 md:mt-8 flex flex-wrap items-center justify-center gap-2 md:gap-4 pointer-events-auto max-w-[95vw]">
-          <button 
-            onClick={() => setActiveCategory(null)}
-            className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[9px] md:text-[10px] uppercase tracking-widest font-bold transition-all border ${activeCategory === null ? 'bg-[#111111] text-[#F9F9F6] border-[#111111]' : 'bg-transparent text-[#111111]/50 border-[#111111]/20 hover:border-[#111111]/50'}`}
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            All Modules
-          </button>
+        <div className="flex gap-4 mt-2">
           {TECH_CATEGORIES.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-[9px] md:text-[10px] uppercase tracking-widest font-bold transition-all border`}
-              style={{ 
-                fontFamily: 'var(--font-mono)',
-                backgroundColor: activeCategory === cat.id ? cat.color : 'transparent',
-                color: activeCategory === cat.id ? '#FFF' : cat.color,
-                borderColor: activeCategory === cat.id ? cat.color : `${cat.color}40`,
-                opacity: activeCategory === null || activeCategory === cat.id ? 1 : 0.4
-              }}
-            >
-              {cat.title}
-            </button>
+            <div key={cat.id} className="flex items-center gap-2">
+              <div className="w-2 h-2" style={{ backgroundColor: cat.color }} />
+              <span className="text-[8px] md:text-[10px] tracking-widest opacity-60">{cat.title}</span>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* ── DRAGGABLE HONEYCOMB GRID ── */}
-      <div className="w-full h-[70vh] relative z-10 flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing mt-24">
-        <motion.div
-          drag
-          dragConstraints={{ left: -1000, right: 1000, top: -1000, bottom: 1000 }}
-          dragElastic={0.1}
-          dragTransition={{ bounceStiffness: 100, bounceDamping: 10 }}
-          className="absolute w-[3000px] h-[3000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        >
-          <div className="absolute left-1/2 top-1/2 w-0 h-0">
-            {hexGrid.map((tech, idx) => {
-              const isFaded = activeCategory && activeCategory !== tech.id;
-              
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true, margin: "20%" }}
-                  transition={{ 
-                    delay: idx * 0.01,
-                    type: 'spring',
-                    stiffness: 260,
-                    damping: 20
-                  }}
-                  className="absolute flex items-center justify-center text-center transition-all duration-500 group hover:z-50"
-                  style={{
-                    width: tech.size * Math.sqrt(3),
-                    height: tech.size * 2,
-                    left: tech.x - (tech.size * Math.sqrt(3)) / 2,
-                    top: tech.y - tech.size,
-                    clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                    backgroundColor: isFaded ? 'rgba(17, 17, 17, 0.03)' : 'rgba(249, 249, 246, 0.9)',
-                    backdropFilter: 'blur(4px)',
-                    border: `1px solid ${isFaded ? 'rgba(17, 17, 17, 0.05)' : tech.color + '40'}`,
-                    boxShadow: 'inset 0 0 20px rgba(255,255,255,0.5)',
-                  }}
-                  whileHover={{ 
-                    scale: 1.15, 
-                    backgroundColor: tech.color,
-                    zIndex: 50,
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  <span 
-                    className={`text-[9px] md:text-[11px] font-bold tracking-wider leading-tight px-2 transition-colors duration-200 group-hover:text-white ${isFaded ? 'text-[#111111]/20' : 'text-[#111111]/80'}`}
-                    style={{ 
-                      fontFamily: 'var(--font-mono)'
-                    }}
-                  >
-                    {tech.name}
-                  </span>
-                  
-                  {/* Hover tooltip/glow effect overlay inside the hex */}
-                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 mix-blend-overlay pointer-events-none" />
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+      {/* ── TERMINAL COLUMNS ── */}
+      <div className="w-full h-full flex mt-32 md:mt-40 mb-10 border-y border-[#0055FF]/30 relative z-20 mx-4 md:mx-8">
+        {columns.map((colItems, idx) => (
+          <MatrixColumn 
+            key={idx} 
+            items={colItems} 
+            // Vary speed and direction slightly for each column
+            speed={isMobile ? 30 + Math.random() * 20 : 40 + Math.random() * 30} 
+            delay={Math.random() * -20} 
+          />
+        ))}
       </div>
-      
-      {/* Instructions */}
-      <div className="absolute bottom-8 z-20 pointer-events-none opacity-50 flex flex-col items-center gap-2">
-        <span className="text-[10px] tracking-[0.3em] font-bold uppercase" style={{ fontFamily: 'var(--font-mono)' }}>
-          Click & Drag to explore
-        </span>
+
+      {/* ── FOOTER / STATUS ── */}
+      <div className="absolute bottom-0 left-0 w-full p-4 md:p-8 z-30 flex justify-between items-center pointer-events-none bg-gradient-to-t from-[#050505] to-transparent pt-16">
+        <span className="text-[10px] md:text-xs text-[#0055FF] animate-pulse">SYSTEM ONLINE</span>
+        <span className="text-[10px] md:text-xs opacity-50">MODULES: {ALL_TECH.length}</span>
       </div>
 
     </section>

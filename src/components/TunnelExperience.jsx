@@ -42,6 +42,12 @@ export default function TunnelExperience() {
           end: `+=${TOTAL_LAYERS * 100}%`,
           pin: pinnedRef.current,
           scrub: 1,
+          snap: {
+            snapTo: 1 / TOTAL_LAYERS,
+            duration: { min: 0.2, max: 0.5 },
+            delay: 0.1,
+            ease: 'power1.inOut'
+          },
           onUpdate: (self) => {
             const p = self.progress;
             
